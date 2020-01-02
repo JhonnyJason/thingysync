@@ -1,0 +1,46 @@
+{
+    "name": "thingysync",
+    "version": "0.0.1",
+    "description": "This is the shit!",
+    "scripts": {
+        "build-coffee": "coffee -o output/ -c sources/source/*/*.coffee",
+        "watch-coffee": "coffee -o output/ -cw sources/source/*/*.coffee",
+        "ncu-update": "ncu -u",
+        "update-packages": "run-s -ns ncu-update install",
+        "module-gen": "thingy-module-gen --",
+        "sync-allmodules": "thingy-allmodules-sync",
+        "add-module": "run-s -ns \"module-gen {*}\" sync-allmodules --",
+        "postinstall": "npm run initialize-thingy",
+        "initialize-thingy": "run-s -ns build",
+        "build": "run-s -ns clean-package build-coffee copyscript install-node-modules prepend-shebang",
+        "watch": "run-p -nsr watch-coffee",
+        "release": "run-s -ns build publish-script",
+        "update-cli-packages": "toolset/thingy-build-system/cli/update-packages.sh",
+        "prepend-shebang": "toolset/thingy-build-system/cli/prepend-shebang-to-output-index.sh",
+        "publish-script": "toolset/thingy-build-system/cli/publish-on-npm.sh",
+        "clean-package": "toolset/thingy-build-system/cli/clean-package.sh",
+        "install-node-modules": "toolset/thingy-build-system/cli/install-node-modules.sh",
+        "copyscript": "sources/ressources/copyscript.sh",
+        "push": "toolset/thingy-build-system/cli/add-commit-and-push-all-repos.sh",
+        "pull": "toolset/thingy-build-system/cli/pull-all.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JhonnyJason/thingysync.git"
+    },
+    "author": "Lenard Frommelt",
+    "license": "Unlicense",
+    "bugs": {
+        "url": "https://github.com/JhonnyJason/thingysync/issues"
+    },
+    "homepage": "https://github.com/JhonnyJason/thingysync#readme",
+    "dependencies": {
+        "coffeescript": "^2.4.1",
+        "npm-check-updates": "^4.0.1",
+        "npm-run-all": "^4.1.5",
+        "thingy-allmodules-sync": "^0.1.0",
+        "thingy-module-gen": "^0.1.1",
+        "thingymodulecreate": "^0.1.1"
+    },
+    "type": "cli"
+}

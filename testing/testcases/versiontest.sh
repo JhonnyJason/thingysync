@@ -1,0 +1,1 @@
+node ../../output/index.js --version

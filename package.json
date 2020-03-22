@@ -1,15 +1,24 @@
 {
     "name": "thingysync",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "This is the shit!",
     "scripts": {
         "build-coffee": "coffee -o output/ -c sources/source/*/*.coffee",
         "watch-coffee": "coffee -o output/ -cw sources/source/*/*.coffee",
         "ncu-update": "ncu -u",
-        "update-packages": "run-s -ns ncu-update install",
+        "reinstall": "npm install",
+        "update-packages": "run-s -ns ncu-update reinstall",
         "module-gen": "thingy-module-gen --",
-        "sync-allmodules": "thingy-allmodules-sync",
+        "sync-allmodules": "thingy-allmodules-sync --style require",
         "add-module": "run-s -ns \"module-gen {*}\" sync-allmodules --",
+        "sourcemodulecreate": "cd sources/source && thingymodulecreate",
+        "use-sub-sourcemodule": "run-s \"sourcemodulecreate submodule,{1},use,{2}\"  --",
+        "merge-sub-sourcemodule": "run-s -ns  \"sourcemodulecreate submodule,{1},merge,{2}\"  --",
+        "merge-dir-sourcemodule": "run-s -ns  \"sourcemodulecreate directory,{1},merge,{2}\"  --",
+        "sourcemodule-to-sub": "run-s \"sourcemodulecreate submodule,{1}\" --",
+        "sourcemodule-to-dir": "run-s \"sourcemodulecreate directory,{1}\" --",
+        "push": "thingysync push --message",
+        "pull": "thingysync pull",
         "postinstall": "npm run initialize-thingy",
         "initialize-thingy": "run-s -ns build",
         "build": "run-s -ns clean-package build-coffee copyscript install-node-modules prepend-shebang",
@@ -20,9 +29,7 @@
         "publish-script": "toolset/thingy-build-system/cli/publish-on-npm.sh",
         "clean-package": "toolset/thingy-build-system/cli/clean-package.sh",
         "install-node-modules": "toolset/thingy-build-system/cli/install-node-modules.sh",
-        "copyscript": "sources/ressources/copyscript.sh",
-        "push": "toolset/thingy-build-system/cli/add-commit-and-push-all-repos.sh",
-        "pull": "toolset/thingy-build-system/cli/pull-all.sh"
+        "copyscript": "sources/ressources/copyscript.sh"
     },
     "repository": {
         "type": "git",
@@ -35,12 +42,13 @@
     },
     "homepage": "https://github.com/JhonnyJason/thingysync#readme",
     "dependencies": {
-        "coffeescript": "^2.4.1",
-        "npm-check-updates": "^4.0.1",
+        "coffeescript": "^2.5.1",
+        "npm-check-updates": "^4.0.4",
         "npm-run-all": "^4.1.5",
-        "thingy-allmodules-sync": "^0.1.0",
-        "thingy-module-gen": "^0.1.1",
-        "thingymodulecreate": "^0.1.1"
+        "thingy-allmodules-sync": "^0.1.3",
+        "thingy-module-gen": "^0.1.4",
+        "thingymodulecreate": "^0.1.7",
+        "thingysync": "^0.1.1"
     },
     "type": "cli"
 }
